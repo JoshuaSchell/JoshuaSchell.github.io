@@ -13,6 +13,12 @@ const state = {
 };
 
 const FRONT_MATTER_REGEX = /^---\s*[\r\n]+([\s\S]+?)\s*---\s*/;
+
+function parseDate(dateStr) {
+  if (!dateStr) return new Date(0);
+  const cleaned = dateStr.replace(/(\d+)(st|nd|rd|th)/, '$1');
+  return new Date(cleaned);
+}
 const EMPTY_TARGETS = ['work-list', 'home-blog-container', 'home-projects', 'all-posts', 'projects-list', 'papers-list'];
 
 function configureMarkdown() {
@@ -90,18 +96,16 @@ function renderWork() {
   }
 
   container.innerHTML = state.work.map((job) => `
-    <div class="work-item">
+    <a class="work-item" href="${job.companyUrl || '#'}" target="_blank" rel="noreferrer">
       <div class="work-header">
         <div class="work-info">
-          <span class="work-company">
-            ${job.companyUrl ? `<a href="${job.companyUrl}" target="_blank" rel="noreferrer">${job.company}</a>` : job.company}
-          </span>
+          <span class="work-company">${job.company}</span>
           <span class="work-title">${job.title}</span>
         </div>
         <span class="work-date">${job.date}</span>
       </div>
       <p class="work-desc">${job.description}</p>
-    </div>
+    </a>
   `).join('');
 }
 
@@ -271,6 +275,15 @@ function showArticle(slug, pushHistory = true) {
     contentEl.querySelectorAll('pre code').forEach((block) => {
       window.hljs?.highlightElement(block);
     });
+    if (window.renderMathInElement) {
+      renderMathInElement(contentEl, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError: false
+      });
+    }
   }
 
   showPage('blog-article');
@@ -355,8 +368,8 @@ async function loadData() {
 
     state.work = work || [];
     state.projects = projects || [];
-    state.blog = blog || [];
-    state.blogIndex = new Map((blog || []).map((entry) => [entry.slug, entry]));
+    state.blog = (blog || []).sort((a, b) => parseDate(b.date) - parseDate(a.date));
+    state.blogIndex = new Map(state.blog.map((entry) => [entry.slug, entry]));
     state.papers = papers || [];
 
     renderWork();

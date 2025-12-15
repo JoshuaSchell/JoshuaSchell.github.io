@@ -5,11 +5,18 @@
     "timeframe": "Mar 2025 - present",
     "description": "An open-source management platform for large-scale 3D printer farms.",
     "achievements": [
-      "Deployed system live to production",
-      "Fort",
-      "Maintained docs and release cadence for the community"
+      "Managing large-scale 3D printer farms for the University of Utah Marriott Library empowering 10s of thousands of students, facuilty, and researchers.",
+      "Freed print administrators time 7+ hours/week via automated G-code validation, payment marking API, and automatic communications, including local RAG LLM-assisted email drafting.",
+      "Eliminated unpaid print starts by driving payment compliance to 0% unpaid jobs (previously jobs could start before payment), resolving a critical operational issue for the University of Utah."
     ],
-    "technologies": ["Docker", "RabbitMQ", "MinIO", "OctoPrint", "C#"],
+    "technologies": [
+      "Docker",
+      "RabbitMQ",
+      "MinIO",
+      "OctoPrint",
+      "C#",
+      "AvaloniaUI"
+    ],
     "link": "https://openfarm3d.github.io/"
   }
 ]

@@ -1,1 +1,14 @@
-[{ "slug": "hello-world", "file": "content/blog/hello-world.md" }]
+[
+  {
+    "slug": "modern-cpp-2025",
+    "file": "content/blog/modern-cpp-2025.md"
+  },
+  {
+    "slug": "cpp-11-14-17",
+    "file": "content/blog/cpp-11-14-17.md"
+  },
+  {
+    "slug": "transformer-math",
+    "file": "content/blog/transformer-math.md"
+  }
+]

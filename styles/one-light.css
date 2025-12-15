@@ -1,0 +1,104 @@
+/*
+ * One Light Theme - Based on Zed Editor
+ * Matching the Atom One Light color scheme
+ */
+
+.hljs {
+    background: #fafafa;
+    color: #383a42;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+    color: #a0a1a7;
+    font-style: italic;
+}
+
+/* Purple - Keywords */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-deletion {
+    color: #a626a4;
+}
+
+/* Blue - Functions, Methods */
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_,
+.hljs-section,
+.hljs-name {
+    color: #4078f2;
+}
+
+/* Green - Strings */
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-addition {
+    color: #50a14f;
+}
+
+/* Orange - Types, Attributes */
+.hljs-type,
+.hljs-attribute,
+.hljs-attr {
+    color: #c18401;
+}
+
+/* Red - Tags, self, this */
+.hljs-tag,
+.hljs-variable,
+.hljs-variable.language_ {
+    color: #e45649;
+}
+
+/* Cyan - Built-ins */
+.hljs-built_in,
+.hljs-builtin-name {
+    color: #0184bc;
+}
+
+/* Orange - Numbers */
+.hljs-number,
+.hljs-literal {
+    color: #986801;
+}
+
+/* Purple - Params */
+.hljs-params {
+    color: #383a42;
+}
+
+/* Blue - Symbols, Meta */
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id {
+    color: #4078f2;
+}
+
+/* Selector class */
+.hljs-selector-class {
+    color: #c18401;
+}
+
+/* Emphasis and Strong */
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+/* Code block styling */
+.hljs {
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
