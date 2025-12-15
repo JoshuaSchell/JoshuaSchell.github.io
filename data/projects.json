@@ -1,0 +1,15 @@
+[
+  {
+    "name": "OpenFarm",
+    "role": "creator & core maintainer",
+    "timeframe": "Mar 2025 - present",
+    "description": "An open-source management platform for large-scale 3D printer farms.",
+    "achievements": [
+      "Deployed system live to production",
+      "Fort",
+      "Maintained docs and release cadence for the community"
+    ],
+    "technologies": ["Docker", "RabbitMQ", "MinIO", "OctoPrint", "C#"],
+    "link": "https://openfarm3d.github.io/"
+  }
+]
