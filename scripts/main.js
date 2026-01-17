@@ -89,6 +89,7 @@ async function loadMarkdownCollection(manifestPath) {
 function renderWork() {
   const container = document.getElementById('work-list');
   if (!container) return;
+  if (container.children.length > 0) return;
 
   if (!state.work || state.work.length === 0) {
     container.innerHTML = '<p class="empty-state">No work experience listed.</p>';
@@ -113,23 +114,25 @@ function renderProjectPreview() {
   const container = document.getElementById('home-projects');
   if (!container) return;
 
-  if (!state.projects || state.projects.length === 0) {
-    container.innerHTML = '<p class="empty-state">No projects listed.</p>';
-    return;
-  }
+  if (container.children.length === 0) {
+    if (!state.projects || state.projects.length === 0) {
+      container.innerHTML = '<p class="empty-state">No projects listed.</p>';
+      return;
+    }
 
-  const preview = state.projects.slice(0, 3);
-  container.innerHTML = preview.map((project) => `
-    <a class="project-preview" href="${project.link}" target="_blank" rel="noreferrer">
-      <div class="project-preview-header">
-        <span class="project-preview-name">${project.name}</span>
-        <span class="project-preview-role">${project.role}</span>
-      </div>
-      <p class="project-preview-desc">${project.description}</p>
-    </a>
-  `).join('') + `
-    <a class="project-preview-link" data-page="projects">all projects <span class="arrow">→</span></a>
-  `;
+    const preview = state.projects.slice(0, 3);
+    container.innerHTML = preview.map((project) => `
+      <a class="project-preview" href="${project.link}" target="_blank" rel="noreferrer">
+        <div class="project-preview-header">
+          <span class="project-preview-name">${project.name}</span>
+          <span class="project-preview-role">${project.role}</span>
+        </div>
+        <p class="project-preview-desc">${project.description}</p>
+      </a>
+    `).join('') + `
+      <a class="project-preview-link" data-page="projects">all projects <span class="arrow">→</span></a>
+    `;
+  }
 
   container.querySelectorAll('[data-page]').forEach((el) => {
     el.addEventListener('click', (event) => {
@@ -221,23 +224,25 @@ function renderBlogPreview() {
   const container = document.getElementById('home-blog-container');
   if (!container) return;
 
-  const preview = state.blog.slice(0, 3);
+  if (container.children.length === 0) {
+    const preview = state.blog.slice(0, 3);
 
-  if (!preview || preview.length === 0) {
-    container.innerHTML = '<p class="empty-state">No posts available.</p>';
-    return;
+    if (!preview || preview.length === 0) {
+      container.innerHTML = '<p class="empty-state">No posts available.</p>';
+      return;
+    }
+
+    const postsHtml = `<div class="post-list">${preview.map((post) => `
+      <a class="post" data-slug="${post.slug}">
+        <span class="post-title">${post.title || 'Untitled'}</span>
+        <span class="post-date">${post.date || ''}</span>
+      </a>
+    `).join('')}</div>`;
+
+    container.innerHTML = postsHtml + `
+      <a class="section-link" data-page="blog">all posts <span class="arrow">→</span></a>
+    `;
   }
-
-  const postsHtml = `<div class="post-list">${preview.map((post) => `
-    <a class="post" data-slug="${post.slug}">
-      <span class="post-title">${post.title || 'Untitled'}</span>
-      <span class="post-date">${post.date || ''}</span>
-    </a>
-  `).join('')}</div>`;
-
-  container.innerHTML = postsHtml + `
-    <a class="section-link" data-page="blog">all posts <span class="arrow">→</span></a>
-  `;
 
   container.querySelectorAll('[data-slug]').forEach((el) => {
     el.addEventListener('click', (event) => {
