@@ -2,12 +2,13 @@
 interface Props {
   name: string;
   description: string;
+  longDescription?: string;
   technologies: string[];
   achievements?: string[];
   link?: string;
 }
 
-const { name, description, technologies, achievements, link } = Astro.props;
+const { name, description, longDescription, technologies, achievements, link } = Astro.props;
 ---
 
 <a
@@ -19,7 +20,7 @@ const { name, description, technologies, achievements, link } = Astro.props;
   <h3 class="inline-block font-medium group-hover:text-accent transition-colors link-underline mb-1">
     {name}
   </h3>
-  <p class="text-sm text-foreground/60">{description}</p>
+  <p class="text-sm text-foreground/60">{longDescription || description}</p>
   {achievements && achievements.length > 0 && (
     <ul class="mt-2 text-sm text-foreground/60 space-y-1">
       {achievements.map((item) => (

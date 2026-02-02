@@ -19,6 +19,7 @@ const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
           <ProjectCard
             name={project.data.name}
             description={project.data.description}
+            longDescription={project.data.longDescription}
             technologies={project.data.technologies}
             achievements={project.data.achievements}
             link={project.data.link}
