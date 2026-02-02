@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fafaf8;
+    --foreground: #171717;
+    --muted: #e5e5e5;
+  }
+
+  .dark {
+    --background: #111111;
+    --foreground: #fafafa;
+    --muted: #262626;
+  }
+
+  html {
+    @apply font-mono antialiased;
+    background-color: var(--background);
+    color: var(--foreground);
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    @apply bg-accent/30;
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply w-full mx-auto max-w-4xl px-6;
+  }
+
+  .link {
+    @apply text-accent hover:underline transition-colors;
+  }
+
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    @apply absolute left-0 bottom-0 w-full h-px bg-accent;
+    content: '';
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--underline-duration, 0.3s) ease-out;
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* For titles inside group-hover cards */
+  .group:hover .link-underline::after {
+    transform: scaleX(1);
+  }
+
+  .section-title {
+    @apply text-sm font-medium mb-4;
+    color: color-mix(in srgb, var(--foreground) 60%, transparent);
+  }
+}
+
+/* KaTeX styles - only loaded on pages with math */
+.katex-display {
+  @apply overflow-x-auto py-4;
+}
+
+.katex {
+  font-size: 1.1em;
+}

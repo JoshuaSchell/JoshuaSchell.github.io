@@ -1,0 +1,27 @@
+---
+const navLinks = [
+  { href: '/', label: 'home' },
+  { href: '/blog', label: 'blog' },
+  { href: '/projects', label: 'projects' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="flex items-center gap-6">
+  {navLinks.map(({ href, label }) => {
+    const isActive = currentPath === href ||
+      (href !== '/' && currentPath.startsWith(href));
+    return (
+      <a
+        href={href}
+        class:list={[
+          'text-sm transition-colors hover:text-accent',
+          isActive ? 'text-accent' : 'text-foreground',
+        ]}
+      >
+        {label}
+      </a>
+    );
+  })}
+</nav>

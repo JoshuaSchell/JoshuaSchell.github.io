@@ -1,0 +1,50 @@
+---
+interface Props {
+  title: string;
+  authors: string[];
+  abstract: string;
+  venue?: string;
+  year: number;
+  arxiv?: string;
+  pdf?: string;
+}
+
+const { title, authors, abstract, venue, year, arxiv, pdf } = Astro.props;
+---
+
+<div class="group p-4 -mx-4 rounded-lg hover:bg-muted/50 transition-colors">
+  <div class="flex items-start justify-between gap-4 mb-2">
+    <h3 class="font-medium group-hover:text-accent transition-colors">{title}</h3>
+    <div class="flex items-center gap-3 shrink-0 text-sm">
+      {arxiv && (
+        <a
+          href={arxiv}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground/60 hover:text-accent transition-colors"
+        >
+          arxiv
+        </a>
+      )}
+      {pdf && (
+        <a
+          href={pdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground/60 hover:text-accent transition-colors"
+        >
+          pdf
+        </a>
+      )}
+    </div>
+  </div>
+  <p class="text-sm text-foreground/60 mb-2">
+    {authors.join(', ')}
+  </p>
+  {venue && (
+    <p class="text-sm text-accent mb-2">
+      {venue} ({year})
+    </p>
+  )}
+  <p class="text-sm text-foreground/80 line-clamp-3">{abstract}</p>
+</div>

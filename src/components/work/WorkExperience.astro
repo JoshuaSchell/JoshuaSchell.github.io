@@ -1,0 +1,28 @@
+---
+import { workExperience } from '@data/work';
+---
+
+<section class="animate-fade-in">
+  <h2 class="section-title">// work</h2>
+  <div class="space-y-4">
+    {workExperience.map((job) => (
+      <a
+        href={job.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block group p-2 -mx-2 rounded-lg hover:bg-muted/50 transition-colors"
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+          <h3 class="inline-block font-medium group-hover:text-accent transition-colors link-underline">
+            {job.company}
+          </h3>
+          <span class="text-sm text-foreground/60">
+            {job.startDate} — {job.endDate || 'present'}
+          </span>
+        </div>
+        <p class="text-sm text-foreground/60 mb-2">{job.title}</p>
+        <p class="text-sm text-foreground/80">{job.description}</p>
+      </a>
+    ))}
+  </div>
+</section>

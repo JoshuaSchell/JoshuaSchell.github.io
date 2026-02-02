@@ -1,0 +1,61 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { siteConfig } from '@data/site';
+import JsonLd from '@components/seo/JsonLd.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedDate: Date;
+}
+
+const { title, description, publishedDate } = Astro.props;
+
+const formattedDate = publishedDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  article={{
+    publishedTime: publishedDate,
+  }}
+  hasMath={true}
+>
+  <JsonLd
+    type="BlogPosting"
+    data={{
+      title,
+      description,
+      publishedTime: publishedDate.toISOString(),
+      url: Astro.url.href,
+    }}
+  />
+
+  <article class="animate-fade-in">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold mb-2">{title}</h1>
+      <div class="flex items-center gap-4 text-foreground/60 text-sm">
+        <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
+      </div>
+    </header>
+
+    <div class="prose dark:prose-invert prose-neutral max-w-none">
+      <slot />
+    </div>
+  </article>
+
+  <nav class="mt-12 pt-8 border-t border-muted text-center">
+    <a
+      href="/blog"
+      class="inline-flex items-center gap-2 text-foreground/60 hover:text-accent transition-colors"
+    >
+      <span>&larr;</span>
+      <span>back to blog</span>
+    </a>
+  </nav>
+</BaseLayout>

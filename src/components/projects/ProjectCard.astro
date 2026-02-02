@@ -1,0 +1,36 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  technologies: string[];
+  achievements?: string[];
+  link?: string;
+}
+
+const { name, description, technologies, achievements, link } = Astro.props;
+---
+
+<a
+  href={link || '#'}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block group p-4 -mx-4 rounded-lg hover:bg-muted/50 transition-colors"
+>
+  <h3 class="inline-block font-medium group-hover:text-accent transition-colors link-underline mb-1">
+    {name}
+  </h3>
+  <p class="text-sm text-foreground/60">{description}</p>
+  {achievements && achievements.length > 0 && (
+    <ul class="mt-2 text-sm text-foreground/60 space-y-1">
+      {achievements.map((item) => (
+        <li class="flex gap-2">
+          <span class="text-accent">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+  <div class="mt-2 text-xs text-accent">
+    {technologies.join(' · ')}
+  </div>
+</a>

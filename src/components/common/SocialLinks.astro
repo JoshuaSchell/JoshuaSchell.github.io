@@ -1,0 +1,16 @@
+---
+import { socialLinks } from '@data/social';
+---
+
+<div class="flex items-center gap-4 text-sm">
+  {socialLinks.map(({ name, url }) => (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-foreground/60 hover:text-accent transition-colors"
+    >
+      {name.toLowerCase()}
+    </a>
+  ))}
+</div>

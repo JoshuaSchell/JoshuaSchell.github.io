@@ -1,0 +1,28 @@
+---
+// Component to set dynamic underline animation durations based on element width
+// This achieves constant visual speed across different title lengths
+---
+
+<script>
+  // Target speed: ~1800px/second (tuned to feel consistent across title lengths)
+  const PIXELS_PER_SECOND = 1800;
+  const MIN_DURATION = 0.1; // seconds
+  const MAX_DURATION = 0.4; // seconds
+
+  function setUnderlineDurations() {
+    document.querySelectorAll('.link-underline').forEach((el) => {
+      const width = (el as HTMLElement).offsetWidth;
+      const duration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, width / PIXELS_PER_SECOND));
+      (el as HTMLElement).style.setProperty('--underline-duration', `${duration}s`);
+    });
+  }
+
+  // Run on initial load
+  setUnderlineDurations();
+
+  // Re-run on resize
+  window.addEventListener('resize', setUnderlineDurations);
+
+  // Re-run after Astro page transitions
+  document.addEventListener('astro:page-load', setUnderlineDurations);
+</script>

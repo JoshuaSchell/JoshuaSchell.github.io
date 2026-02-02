@@ -1,0 +1,21 @@
+{
+  "name": "OpenFarm",
+  "description": "Open-source 3D printer farm management platform",
+  "longDescription": "A comprehensive platform for managing multiple 3D printers, including job scheduling, monitoring, and analytics. Made for the University of Utah, open source, and community-driven.",
+  "technologies": [
+    "C#",
+    "Docker",
+    "PostgreSQL",
+    "RabbitMQ",
+    "MinIO",
+    "OctoPrint"
+  ],
+  "achievements": [
+    "Managing large-scale 3D printer farms for the University of Utah Eccle's Health Science Library",
+    "Eliminated unpaid print starts by driving payment compliance to 0% unpaid jobs (previously jobs could start before payment), resolving a critical operational issue for the University of Utah",
+    "Automated job scheduling and GCode validation"
+  ],
+  "link": "https://github.com/OpenFarm-oss/OpenFarm",
+  "featured": true,
+  "order": 1
+}

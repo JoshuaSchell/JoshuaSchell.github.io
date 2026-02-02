@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const featuredProjects = projects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<section class="animate-fade-in">
+  <h2 class="section-title">// projects</h2>
+  <div class="space-y-2">
+    {featuredProjects.map((project) => (
+      <a
+        href={project.data.link || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block group p-2 -mx-2 rounded-lg hover:bg-muted/50 transition-colors"
+      >
+        <h3 class="inline-block font-medium group-hover:text-accent transition-colors link-underline mb-1">
+          {project.data.name}
+        </h3>
+        <p class="text-sm text-foreground/60">{project.data.description}</p>
+      </a>
+    ))}
+  </div>
+  <a
+    href="/projects"
+    class="group flex items-center gap-1 p-2 -mx-2 rounded hover:bg-muted/50 transition-colors mt-4 text-sm text-accent"
+  >
+    all projects
+    <span class="inline-block opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">→</span>
+  </a>
+</section>

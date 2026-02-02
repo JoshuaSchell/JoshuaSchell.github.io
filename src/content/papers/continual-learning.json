@@ -1,0 +1,8 @@
+{
+  "title": "Example",
+  "authors": ["Josh Schell", "Jane Doe", "John Smith"],
+  "abstract": "Example.",
+  "venue": "NeurIPS Workshop on Continual Learning",
+  "year": 2025,
+  "arxiv": "https://arxiv.org/abs/2501.00000"
+}

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/home/Hero.astro';
+import WorkExperience from '@components/work/WorkExperience.astro';
+import RecentPosts from '@components/home/RecentPosts.astro';
+import FeaturedProjects from '@components/home/FeaturedProjects.astro';
+import JsonLd from '@components/seo/JsonLd.astro';
+import { siteConfig } from '@data/site';
+---
+
+<BaseLayout title={siteConfig.name}>
+  <JsonLd
+    type="Person"
+    data={{
+      jobTitle: 'Software Engineer Intern',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Collins Aerospace',
+      },
+    }}
+  />
+
+  <div class="space-y-12">
+    <Hero />
+    <WorkExperience />
+    <RecentPosts />
+    <FeaturedProjects />
+  </div>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PaperCard from '@components/papers/PaperCard.astro';
+
+const papers = await getCollection('papers');
+const sortedPapers = papers.sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout title="Papers" description="Academic papers and publications.">
+  <div class="animate-fade-in">
+    <h1 class="text-3xl font-bold mb-8">Papers</h1>
+
+    {sortedPapers.length === 0 ? (
+      <p class="text-foreground/60">No papers yet. Check back soon!</p>
+    ) : (
+      <div class="space-y-2">
+        {sortedPapers.map((paper) => (
+          <PaperCard
+            title={paper.data.title}
+            authors={paper.data.authors}
+            abstract={paper.data.abstract}
+            venue={paper.data.venue}
+            year={paper.data.year}
+            arxiv={paper.data.arxiv}
+            pdf={paper.data.pdf}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

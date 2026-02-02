@@ -1,0 +1,73 @@
+---
+title: "Modern C++ Memory Management"
+description: "Exploring smart pointers, RAII, and memory safety patterns in modern C++."
+publishedDate: 2026-01-10
+---
+
+Modern C++ provides powerful tools for safe and efficient memory management. Let's explore the key patterns.
+
+## Smart Pointers
+
+C++11 introduced smart pointers that automatically manage memory:
+
+### unique_ptr
+
+`unique_ptr` provides exclusive ownership:
+
+```cpp
+#include <memory>
+
+auto ptr = std::make_unique<int>(42);
+// Memory automatically freed when ptr goes out of scope
+
+// Transfer ownership
+auto ptr2 = std::move(ptr);
+// ptr is now nullptr
+```
+
+### shared_ptr
+
+`shared_ptr` allows shared ownership with reference counting:
+
+```cpp
+auto shared = std::make_shared<std::string>("hello");
+auto copy = shared; // Reference count is now 2
+
+std::cout << shared.use_count(); // Prints 2
+```
+
+## RAII Pattern
+
+Resource Acquisition Is Initialization (RAII) ensures resources are properly managed:
+
+```cpp
+class FileHandle {
+    FILE* file;
+public:
+    FileHandle(const char* path) : file(fopen(path, "r")) {
+        if (!file) throw std::runtime_error("Failed to open file");
+    }
+
+    ~FileHandle() {
+        if (file) fclose(file);
+    }
+
+    // Delete copy operations
+    FileHandle(const FileHandle&) = delete;
+    FileHandle& operator=(const FileHandle&) = delete;
+
+    // Allow move operations
+    FileHandle(FileHandle&& other) noexcept : file(other.file) {
+        other.file = nullptr;
+    }
+};
+```
+
+## Best Practices
+
+1. **Prefer `make_unique` and `make_shared`** over raw `new`
+2. **Use `unique_ptr` by default**, `shared_ptr` when sharing is needed
+3. **Avoid raw owning pointers** - use smart pointers or containers
+4. **Consider `weak_ptr`** to break circular references
+
+Modern C++ makes memory safety achievable without sacrificing performance.

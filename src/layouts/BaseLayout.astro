@@ -1,0 +1,83 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import '@/styles/global.css';
+import SEO from '@components/seo/SEO.astro';
+import JsonLd from '@components/seo/JsonLd.astro';
+import Header from '@components/common/Header.astro';
+import Footer from '@components/common/Footer.astro';
+import UnderlineAnimation from '@components/common/UnderlineAnimation.astro';
+import { siteConfig } from '@data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  article?: {
+    publishedTime: Date;
+    modifiedTime?: Date;
+  };
+  noindex?: boolean;
+  hasMath?: boolean;
+}
+
+const { title, description, article, noindex, hasMath = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Fonts - Lilex from jsDelivr CDN -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/lilex@5.0.3/index.css" rel="stylesheet" />
+
+    <ViewTransitions />
+
+    <SEO
+      title={title}
+      description={description}
+      article={article}
+      noindex={noindex}
+    />
+
+    <JsonLd type="WebSite" />
+
+    {hasMath && (
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+        crossorigin="anonymous"
+      />
+    )}
+
+    <!-- Theme script - runs before page renders to prevent flash -->
+    <script is:inline>
+      (function() {
+        function getTheme() {
+          return localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+
+        // Set on initial load
+        document.documentElement.classList.toggle('dark', getTheme() === 'dark');
+
+        // Preserve theme during ViewTransitions swap
+        document.addEventListener('astro:before-swap', (e) => {
+          e.newDocument.documentElement.classList.toggle('dark', getTheme() === 'dark');
+        });
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 container-main py-8">
+      <slot />
+    </main>
+    <Footer />
+    <UnderlineAnimation />
+  </body>
+</html>

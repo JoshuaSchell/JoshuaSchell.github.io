@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PostCard from '@components/blog/PostCard.astro';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = posts.sort(
+  (a, b) => b.data.publishedDate.getTime() - a.data.publishedDate.getTime()
+);
+---
+
+<BaseLayout title="Blog" description="Thoughts on machine learning, programming, and technology.">
+  <div class="animate-fade-in">
+    <h1 class="text-3xl font-bold mb-8">blog</h1>
+
+    {sortedPosts.length === 0 ? (
+      <p class="text-foreground/60">No posts yet. Check back soon!</p>
+    ) : (
+      <div class="space-y-2">
+        {sortedPosts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            href={`/blog/${post.id}`}
+            date={post.data.publishedDate}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

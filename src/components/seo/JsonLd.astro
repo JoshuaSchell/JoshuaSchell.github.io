@@ -1,0 +1,74 @@
+---
+import { siteConfig } from '@data/site';
+import { socialLinks } from '@data/social';
+
+type SchemaType = 'Person' | 'WebSite' | 'BlogPosting';
+
+interface Props {
+  type: SchemaType;
+  data?: Record<string, unknown>;
+}
+
+const { type, data = {} } = Astro.props;
+
+function getSchema(type: SchemaType, data: Record<string, unknown>) {
+  const baseUrl = siteConfig.url;
+
+  switch (type) {
+    case 'Person':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: siteConfig.name,
+        url: baseUrl,
+        jobTitle: data.jobTitle || 'ML Engineer',
+        worksFor: data.worksFor,
+        sameAs: socialLinks.map((link) => link.url),
+        knowsAbout: data.knowsAbout || [
+          'Machine Learning',
+          'Continual Learning',
+          'HPC',
+        ],
+      };
+
+    case 'WebSite':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: siteConfig.name,
+        url: baseUrl,
+        description: siteConfig.description,
+      };
+
+    case 'BlogPosting':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: data.title,
+        description: data.description,
+        datePublished: data.publishedTime,
+        dateModified: data.modifiedTime || data.publishedTime,
+        author: {
+          '@type': 'Person',
+          name: siteConfig.name,
+          url: baseUrl,
+        },
+        publisher: {
+          '@type': 'Person',
+          name: siteConfig.name,
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': data.url,
+        },
+      };
+
+    default:
+      return {};
+  }
+}
+
+const schema = getSchema(type, data);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
