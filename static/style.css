@@ -1,0 +1,465 @@
+/* Geist and Geist Mono (SIL OFL 1.1, see fonts/LICENSE-geist.txt), Latin subset. */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/geist.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/geist-mono.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --bg: #fafaf8;
+  --fg: #171717;
+  --accent: #ff6b35;
+  --sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, monospace;
+  --muted: color-mix(in srgb, var(--fg) 55%, var(--bg));
+  --faint: color-mix(in srgb, var(--fg) 10%, var(--bg));
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #111111;
+  --fg: #ededed;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--fg) 25%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Layout */
+
+.wrap {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2.5rem;
+  padding-bottom: 3.5rem;
+  font-size: 0.875rem;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.site-header a {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.site-header a:hover,
+.site-header a[aria-current] {
+  color: var(--fg);
+}
+
+.theme-toggle {
+  background: none;
+  border: 0;
+  /* Bigger tap target without moving the icon; auto left margin keeps it right-aligned even without a nav. */
+  padding: 8px;
+  margin: -8px -8px -8px auto;
+  font: inherit;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--fg);
+}
+
+.theme-toggle svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dark .icon-moon,
+:root:not(.dark) .icon-sun {
+  display: none;
+}
+
+main {
+  padding-bottom: 6rem;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Without a header bar, start the page a little lower. */
+body > main:first-child {
+  padding-top: 4.5rem;
+}
+
+.intro p {
+  margin: 0 0 1rem;
+}
+
+.post-header {
+  margin-bottom: 2.5rem;
+}
+
+.post-header .title-row {
+  margin-bottom: 0.25rem;
+}
+
+.back {
+  margin-top: 3rem;
+}
+
+/* Shared text helpers */
+
+.muted {
+  color: var(--muted);
+}
+
+.meta {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.section {
+  margin-top: 3.5rem;
+}
+
+.section > h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
+
+/* Lists of entries: work, projects, writing */
+
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.entries.tight {
+  gap: 0.6rem;
+}
+
+/* title ········ date */
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.entry-head > :first-child {
+  min-width: 0;
+}
+
+.entry-head::after {
+  content: '';
+  order: 1;
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 22%, transparent);
+}
+
+.entry-head > .meta {
+  order: 2;
+}
+
+.entry-head:not(:has(> .meta))::after {
+  display: none;
+}
+
+@media (max-width: 30rem) {
+  .entry-head {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .entry-head::after {
+    display: none;
+  }
+}
+
+.entry p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.entry .meta.tags {
+  display: block;
+  margin-top: 0.4rem;
+  white-space: normal;
+}
+
+.more {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* Prose (blog posts) */
+
+.prose {
+  font-size: 1rem;
+}
+
+.prose h2 {
+  font-size: 1.25rem;
+  margin: 2.5rem 0 0.75rem;
+}
+
+.prose h3 {
+  font-size: 1.0625rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote {
+  margin: 0 0 1.1rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+
+.prose li + li {
+  margin-top: 0.3rem;
+}
+
+.prose blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid var(--faint);
+  color: var(--muted);
+}
+
+.prose :not(pre) > code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--faint);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--faint);
+  margin: 2.5rem 0;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin-bottom: 1.1rem;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.4rem 0.75rem 0.4rem 0;
+  border-bottom: 1px solid var(--faint);
+}
+
+/* Sidenotes, written as Markdown footnotes. Narrow screens: tap the number to expand the note
+   inline (a visually hidden checkbox keeps it keyboard accessible). Wide screens: notes sit in the
+   right margin beside the line that references them. */
+.sidenote-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidenote-ref {
+  padding: 0 0.15em;
+  font-size: 0.7em;
+  line-height: 0;
+  vertical-align: super;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.sidenote-toggle:focus-visible + .sidenote-ref {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.sidenote {
+  display: none;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.sidenote-num {
+  margin-right: 0.4em;
+  color: var(--accent);
+  font-size: 0.85em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sidenote-toggle:checked + .sidenote-ref + .sidenote {
+  display: block;
+  margin: 0.6rem 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--accent);
+}
+
+@media (min-width: 72rem) {
+  .sidenote-toggle {
+    display: none;
+  }
+
+  .sidenote-ref {
+    cursor: default;
+  }
+
+  .sidenote,
+  .sidenote-toggle:checked + .sidenote-ref + .sidenote {
+    display: block;
+    float: right;
+    clear: right;
+    width: 14rem;
+    margin: 0.3rem -16.5rem 0.75rem 0;
+    padding: 0;
+    border: 0;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Code blocks; token colors come from syntax.css */
+.prose pre.code {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  border: 1px solid var(--faint);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 3%, var(--bg));
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.prose pre.code code {
+  font: inherit;
+  background: none;
+}
+
+.prose pre.code .hl-code {
+  background: none;
+}
+
+/* Math, rendered to MathML at build time; fonts and layout in math.css */
+.math-block {
+  display: block;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+math {
+  font-size: 1.05em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none;
+  }
+}

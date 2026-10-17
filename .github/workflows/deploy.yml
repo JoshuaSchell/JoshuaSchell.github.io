@@ -21,10 +21,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install, build, and upload site
-        uses: withastro/action@v3
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo build
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build site
+        run: cargo run --release --locked
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 22
+          path: dist
 
   deploy:
     needs: build

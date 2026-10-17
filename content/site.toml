@@ -1,0 +1,60 @@
+# Everything on the home page except the bio, which lives in content/index.md.
+
+name = "Josh Schell"
+description = "M.S. Computing student (AI emphasis) at the University of Utah and AI/ML engineering intern at AMD, working on vLLM. Interested in ML systems, HPC, and inference."
+url = "https://joshuaschell.github.io"
+job_title = "AI/ML Engineer Intern"
+employer = "AMD"
+
+[[links]]
+name = "Email"
+url = "mailto:josh@schell.me"
+
+[[links]]
+name = "GitHub"
+url = "https://github.com/JoshuaSchell"
+
+[[links]]
+name = "LinkedIn"
+url = "https://www.linkedin.com/in/josh-schell/"
+
+[[links]]
+name = "X"
+url = "https://x.com/hoshuatxt"
+
+[[work]]
+company = "AMD"
+url = "https://www.amd.com"
+dates = "Sep – Dec 2026"
+description = "ML frameworks (vLLM)"
+
+[[work]]
+company = "Micron"
+url = "https://www.micron.com"
+dates = "Jun – Aug 2026"
+description = "Data center SSD validation"
+
+[[work]]
+company = "Collins Aerospace"
+url = "https://www.collinsaerospace.com"
+dates = "May 2025 – May 2026"
+description = "Software-defined networking"
+
+[[education]]
+school = "University of Utah"
+url = "https://www.utah.edu"
+degree = "M.S. Computing, Artificial Intelligence"
+dates = "Expected May 2027"
+
+[[education]]
+school = "University of Utah"
+url = "https://www.utah.edu"
+degree = "B.S. Computer Science"
+dates = "Dec 2025"
+
+# Projects appear in their own section once at least one is listed.
+# [[projects]]
+# name = "..."
+# url = "https://github.com/..."
+# description = "..."
+# tech = ["Rust", "CUDA"]
