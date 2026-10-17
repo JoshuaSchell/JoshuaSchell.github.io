@@ -1,43 +1,49 @@
-# Astro Starter Kit: Minimal
+# joshuaschell.github.io
+
+Personal site, built by a small Rust static site generator. No Node, no client-side framework.
 
 ```sh
-npm create astro@latest -- --template minimal
+cargo run                            # build into dist/
+python3 -m http.server -d dist 8000  # preview at localhost:8000
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Pushing to `main` builds and deploys to GitHub Pages (`.github/workflows/deploy.yml`).
 
-## 🚀 Project Structure
+## Editing content
 
-Inside of your Astro project, you'll see the following folders and files:
+- `content/index.md`: the bio on the home page.
+- `content/site.toml`: name, links, work, projects, and papers.
+- `content/blog/<slug>.md`: posts, published at `/blog/<slug>/`. There are none yet; while there are none,
+  the blog page, feed, and nav are left out, and they appear with the first post. Each starts with TOML front matter:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+  ```markdown
+  +++
+  title = "Post title"
+  description = "One sentence for the blog index, feeds, and search results."
+  date = 2026-10-16
+  draft = true  # optional, hides the post
+  +++
+  ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+  Footnotes use standard Markdown and render as sidenotes, in the right margin on wide screens and
+  tap-to-expand on narrow ones. The feed keeps them as ordinary footnotes:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+  ```markdown
+  Let's take vim as an example[^vim].
 
-Any static assets, like images, can be placed in the `public/` directory.
+  [^vim]: This is just an example, and applies to other editors too.
+  ```
 
-## 🧞 Commands
+  Math is LaTeX between `$...$` or `$$...$$`, rendered to MathML at build time. Fenced code blocks are
+  highlighted at build time too. Pages only load `math.css` or `syntax.css` when they need them.
 
-All commands are run from the root of the project, from a terminal:
+- `static/`: copied as-is into `dist/` (stylesheet, fonts, favicon).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## How it's built
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/main.rs`: loads content, writes pages, `sitemap.xml`, and `feed.xml`, and adds content hashes to
+  asset URLs so browsers refetch them after a change.
+- `src/markdown.rs`: Markdown via `pulldown-cmark`, math via `pulldown-latex`, code via `syntect`.
+- `themes/`: GitHub Light and Dark code colors (VS Code theme JSON, converted at build time). Any VS Code
+  theme's JSON works; change `LIGHT_THEME` / `DARK_THEME` in `src/markdown.rs`.
+- `src/templates.rs`: HTML templates written with `maud`, checked at compile time.

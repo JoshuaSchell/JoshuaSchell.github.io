@@ -1,0 +1,3 @@
+latinmodern-math.woff2: Latin Modern Math, (c) GUST e-foundry.
+Distributed under the GUST Font License: http://www.gust.org.pl/projects/e-foundry/licenses
+Repackaged as WOFF2 by pulldown-latex (https://github.com/carloskiki/pulldown-latex).
